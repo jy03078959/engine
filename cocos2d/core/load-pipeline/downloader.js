@@ -77,7 +77,11 @@ function downloadImage (item, callback, isCrossOrigin, img) {
     if (isCrossOrigin === undefined) {
         isCrossOrigin = true;
     }
-
+    console.log('2ssss22',item.url)
+    if(window.preRes&&window.preRes[item.url]){
+        callback(null, window.preRes[item.url])
+        return
+    }
     var url = urlAppendTimestamp(item.url);
     img = img || new Image();
     if (isCrossOrigin && window.location.protocol !== 'file:') {

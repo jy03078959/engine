@@ -42,7 +42,11 @@ else {
     module.exports = function (item, callback) {
         var url = item.url;
         url = urlAppendTimestamp(url);
-
+        console.log('text.loader',item.url)
+        if(window.preRes&&window.preRes[item.url]){
+            callback(null,window.preRes[item.url])
+            return
+        }
         var xhr = cc.loader.getXMLHttpRequest(),
             errInfo = 'Load text file failed: ' + url;
         xhr.open('GET', url, true);
