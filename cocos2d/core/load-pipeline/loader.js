@@ -35,8 +35,10 @@ function loadNothing () {
 }
 
 function loadJSON (item) {
-    if (typeof item.content !== 'string') {
-        return new Error('JSON Loader: Input item doesn\'t contain string content');
+    if (typeof item.content === 'object') {
+        console.log('json is object return')
+        return item.content;
+        // return new Error('JSON Loader: Input item doesn\'t contain string content');
     }
 
     try {
@@ -58,7 +60,7 @@ function loadImage (item) {
     var image = item.content;
     if (!CC_WECHATGAME && !CC_QQPLAY && !(image instanceof Image)) {
         return new Error('Image Loader: Input item doesn\'t contain Image content');
-    } 
+    }
 
     // load cc.Texture2D
     var rawUrl = item.rawUrl;
