@@ -33,8 +33,11 @@ var context = __audioSupport.context;
 
 function loadDomAudio (item, callback) {
     var dom = document.createElement('audio');
-    dom.src = item.url;
-
+    if (window.preRes && window.preRes[item.url]) {
+        dom.src = window.preRes[item.url];
+    } else {
+        dom.src = item.url;
+    }
     if (CC_WECHATGAME) {
         callback(null, dom);
         return;
@@ -74,7 +77,11 @@ function loadWebAudio (item, callback) {
         callback(new Error(debug.getError(4926)));
 
     var request = cc.loader.getXMLHttpRequest();
-    request.open("GET", item.url, true);
+    if (window.preRes && window.preRes[item.url]) {
+        request.open("GET", window.preRes[item.url], true);
+    } else {
+        request.open("GET", item.url, true);
+    }
     request.responseType = "arraybuffer";
 
     // Our asynchronous callback
